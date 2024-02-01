@@ -2,8 +2,12 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.mysql.cj.protocol.Resultset;
 
 import model.User;
 
@@ -45,9 +49,29 @@ public class UserDao implements DaoImp {
 	}
 
 	@Override
-	public int show() throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<User> show() throws ClassNotFoundException, SQLException {
+
+    ArrayList<User> ul = new  ArrayList<>();
+    
+    Connection c = getConnect();
+	Statement s = c.createStatement();
+    ResultSet rs = s.executeQuery("select * from mydb_table");
+    
+    while(rs.next())
+    {
+    	User u = new User();
+    	
+    	u.setUid(rs.getInt(1));
+    	u.setUname(rs.getString(2));
+    	u.setUpass(rs.getString(3));
+    	
+    	ul.add(u);
+    	
+    	
+    }
+		
+		
+		return ul;
 	}
 
 	

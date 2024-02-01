@@ -3,6 +3,7 @@ package view;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,7 +51,27 @@ public class MyServlet extends HttpServlet {
 	}
 	
 	
+	p.print("<table>");
 	
+	p.print("<tr>  <th>UID</th>   <th>UNAME</th>   <th>UPASS</th>    </tr>");
+	
+	
+	
+	try {
+		ArrayList<User> ul = db.show();
+		for(User x: ul)
+		{
+			p.print("<tr>  <td>"+x.getUid()+"</td>  <td>"+x.getUname()+"</td>  <td>"+x.getUpass()+"</td>   </tr> ");
+			
+		}
+	} catch (ClassNotFoundException | SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	
+	
+	p.print("</table>");
 	
 	
 	
